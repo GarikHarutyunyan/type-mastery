@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, FC } from 'react';
 import { useKeyboard } from './hooks/useKeyboard';
 
-function App() {
-  const [pressedKey, setPressedKey] = useState<string | null>("");
+import './App.css';
+
+const App: FC = () => {
+  const [pressedKey, setPressedKey] = useState<string>("");
 
   useKeyboard(setPressedKey);
 

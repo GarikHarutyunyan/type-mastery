@@ -11,7 +11,7 @@ export const useKeyboard = (callback: (key: string) => void) => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, []);
+  }, [handleKeyDown]);
 
   return handleKeyDown;
 }
