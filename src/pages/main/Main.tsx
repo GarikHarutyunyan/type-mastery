@@ -11,7 +11,7 @@ export const Main: FC = () => {
     useKeyboard(setPressedKey);
 
     return (
-        <div>
+        <main>
             <h1>{plainText}</h1>
             <h1>
                 {plainText.split('').map((char, index) => (
@@ -23,6 +23,6 @@ export const Main: FC = () => {
                     </span>
                 ))}
             </h1>
-        </div>
+        </main>
     )
 }
