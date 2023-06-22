@@ -6,7 +6,6 @@ import "../../styles/Main.module.css";
 export const Main: FC = () => {
     const [pressedKey, setPressedKey] = useState<string>("");
     const [plainText] = useState<string>("aaa");
-    // const [inputString, setInputString] = useState<string>("");
 
     useKeyboard(setPressedKey);
 
