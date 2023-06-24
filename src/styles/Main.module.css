@@ -1,3 +1,19 @@
-span {
-    color: grey;
+.container {
+  position: relative;
+  border: 1px solid red;
+  text-align: center;
+}
+
+.plainText {
+  color: grey;
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+}
+
+.inputString {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  color: black;
 }

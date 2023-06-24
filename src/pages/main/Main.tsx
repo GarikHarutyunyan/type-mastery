@@ -1,28 +1,28 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useKeyboard } from '../../hooks/useKeyboard';
 
-// import styles from "../../styles/Main.module.css";
+import styles from "../../styles/Main.module.css";
 
 export const Main: FC = () => {
     const [pressedKey, setPressedKey] = useState<string>("");
-    const [plainText] = useState<string>("aaa");
-    // const [inputString, setInputString] = useState<string>("");
+    const [inputString, setInputString] = useState<string>("");
+    const [i, setI] = useState<number>(0);
+
+    const plainText = "hello world";
 
     useKeyboard(setPressedKey);
 
+    useEffect(() => {
+        if (plainText[i] === pressedKey) {
+            setInputString(prevState => prevState += pressedKey);
+            setI(prevState => ++prevState);
+        }
+    }, [i, pressedKey]);
+
     return (
-        <div>
-            <h1>{plainText}</h1>
-            <h1>
-                {plainText.split('').map((char, index) => (
-                    <span
-                        key={index}
-                        style={{ color: plainText.charAt(index) === pressedKey ? 'green' : 'black' }}
-                    >
-                        {char}
-                    </span>
-                ))}
-            </h1>
+        <div className={styles.container}>
+            <h1 className={styles.plainText}>{plainText}</h1>
+            <h1 className={styles.inputString}>{inputString}</h1>
         </div>
     )
 }
