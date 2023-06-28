@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useKeyboard } from '../../hooks/useKeyboard';
-
+import text from "../../config/text.json";
 import styles from "../../styles/Main.module.css";
 
 export const Main: FC = () => {
@@ -8,7 +8,7 @@ export const Main: FC = () => {
     const [inputString, setInputString] = useState<string>("");
     const [i, setI] = useState<number>(0);
 
-    const plainText = "hello world";
+    const plainText = text.en;
 
     useKeyboard(setPressedKey);
 
@@ -16,7 +16,11 @@ export const Main: FC = () => {
         if (plainText[i] === pressedKey) {
             setInputString(prevState => prevState += pressedKey);
             setI(prevState => ++prevState);
+            console.log(plainText[i], pressedKey);
+        } else {
+            console.log('false');
         }
+
     }, [i, pressedKey]);
 
     return (
