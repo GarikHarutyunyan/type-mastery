@@ -1,12 +1,11 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { useKeyboard } from '../../hooks/useKeyboard';
 
-// import styles from "../../styles/Main.module.css";
+import "../../styles/Main.module.css";
 
 export const Main: FC = () => {
     const [pressedKey, setPressedKey] = useState<string>("");
     const [plainText] = useState<string>("aaa");
-    // const [inputString, setInputString] = useState<string>("");
 
     useKeyboard(setPressedKey);
 
