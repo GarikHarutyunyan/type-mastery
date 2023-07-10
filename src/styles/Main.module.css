@@ -17,3 +17,14 @@
   align-items: flex-start;
   color: black;
 }
+
+main {
+  background-color: greenyellow;
+  min-height: 100%;
+  display: block;
+  border: 1px solid red;
+}
+
+span {
+  color: grey;
+}
