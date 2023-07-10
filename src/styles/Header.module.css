@@ -1,0 +1,8 @@
+header {
+    width: 100%;
+    height: 64px;
+    border: 1px solid black;
+    background-color: dodgerblue;
+    color: #ffffff;
+    font-size: 36px;
+}
