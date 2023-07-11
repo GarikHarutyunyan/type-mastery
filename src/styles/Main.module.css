@@ -4,27 +4,16 @@
   text-align: center;
 }
 
-.plainText {
+.initialText {
   color: grey;
-  position: absolute;
-  display: flex;
+  /* position: absolute; */
+  display: inline-flex;
   align-items: flex-start;
 }
 
-.inputString {
+.inputText {
   position: absolute;
   display: flex;
   align-items: flex-start;
   color: black;
-}
-
-main {
-  background-color: greenyellow;
-  min-height: 100%;
-  display: block;
-  border: 1px solid red;
-}
-
-span {
-  color: grey;
 }

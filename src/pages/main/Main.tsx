@@ -1,28 +1,32 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useKeyboard } from '../../hooks/useKeyboard';
 
 import styles from "../../styles/Main.module.css";
 
-export const Main: FC = () => {
+export const Main: React.FC = () => {
     const [pressedKey, setPressedKey] = useState<string>("");
-    const [inputString, setInputString] = useState<string>("");
-    const [i, setI] = useState<number>(0);
+    const [inputText, setInputText] = useState<string>("");
 
-    const plainText = "hello world";
+    const initialText = "hello world";
+    const initialSplittedText: string[] = initialText.split('');
+    console.log(initialSplittedText);
 
     useKeyboard(setPressedKey);
 
     useEffect(() => {
-        if (plainText[i] === pressedKey) {
-            setInputString(prevState => prevState += pressedKey);
-            setI(prevState => ++prevState);
+        const currentIndex: number = inputText.length;
+        
+        if (initialText[currentIndex] === pressedKey) {
+            setInputText(prevState => prevState += pressedKey);
         }
-    }, [i, pressedKey]);
+    }, [pressedKey]);
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.plainText}>{plainText}</h1>
-            <h1 className={styles.inputString}>{inputString}</h1>
+            {initialSplittedText.map((letter)=>{
+                return (<p className={styles.initialText}>{letter}</p>)
+            })}
+            <h1 className={styles.inputText}>{inputText}</h1>
         </div>
     )
 }
