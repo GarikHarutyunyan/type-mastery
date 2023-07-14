@@ -13,7 +13,6 @@ nav {
   display: flex;
   align-items: center;
   height: 64px;
-  border: 1px solid red;
 }
 
 ul {
@@ -24,7 +23,6 @@ ul {
 }
 
 ul > div {
-  border: 1px solid red;
   display: flex;
 }
 
@@ -49,5 +47,4 @@ a:hover {
 img {
   width: 52px;
   height: 52px;
-  border: 1px solid red;
 }
