@@ -5,8 +5,9 @@ export const useInputText = (callback: (key: string) => void) => {
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     e.preventDefault();
-    if(e?.key === 'Shift'){
-      return
+    
+    if(e?.key?.length > 1 && e?.key !== 'Backspace'){
+      return;
     }
 
     if(e?.key === 'Backspace'){
