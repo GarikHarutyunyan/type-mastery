@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 export const useKeyboard = (callback: (key: string) => void) => {
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    e.preventDefault();
     callback(e?.key);
 
   }, [callback]);

@@ -2,18 +2,31 @@
   position: relative;
   border: 1px solid red;
   text-align: center;
+  margin: 50px;
 }
 
-.initialText {
+.letter {
+  font-size: 45px;
+  font-weight: bold;
   color: grey;
-  /* position: absolute; */
-  display: inline-flex;
-  align-items: flex-start;
+  line-height: 70px;
+  padding: 0 1px;
+  transition: 0.2s ease-out;
 }
 
-.inputText {
-  position: absolute;
-  display: flex;
-  align-items: flex-start;
-  color: black;
+.correct {
+  background-color: lightgreen;
+}
+
+.incorrect {
+  background-color: tomato;
+}
+
+.letter_space {
+  display: inline-block;
+  height: 10px;
+  width: 35px;
+  margin: 5px;
+  vertical-align: bottom;
+
 }
