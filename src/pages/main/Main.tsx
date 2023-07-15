@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useInputText } from '../../hooks/useInputText';
 import styles from "../../styles/Main.module.css";
+import { TimerBar } from '../../components/TimerBar';
 
 export const Main: React.FC = () => {
     const [inputText, setPressedKey] = useState<string>("");
@@ -14,6 +15,7 @@ export const Main: React.FC = () => {
 
     return (
         <div className={styles.container}>
+            <TimerBar />
             <div>
                 {
                     initialSplittedText.map((letter, index)=>
@@ -22,8 +24,7 @@ export const Main: React.FC = () => {
                             const isIncorrect: boolean = !isCorrect && index < inputText.length;
                             
                             return (
-
-                                <span className={clsx(styles.letter, {[styles.letter_space]: letter === ' '}, {[styles.correct]: isCorrect}, {[styles.incorrect]: isIncorrect})}>
+                                <span key={`${letter}_${index}`} className={clsx(styles.letter, {[styles.letter_space]: letter === ' '}, {[styles.correct]: isCorrect}, {[styles.incorrect]: isIncorrect})}>
                                     {letter}
                                 </span>
                             )   
