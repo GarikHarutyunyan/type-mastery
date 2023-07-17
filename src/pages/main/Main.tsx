@@ -22,8 +22,7 @@ export const Main: React.FC = () => {
                             const isIncorrect: boolean = !isCorrect && index < inputText.length;
                             
                             return (
-
-                                <span className={clsx(styles.letter, {[styles.letter_space]: letter === ' '}, {[styles.correct]: isCorrect}, {[styles.incorrect]: isIncorrect})}>
+                                <span key={`${letter}_${index}`} className={clsx(styles.letter, {[styles.letter_space]: letter === ' '}, {[styles.correct]: isCorrect}, {[styles.incorrect]: isIncorrect})}>
                                     {letter}
                                 </span>
                             )   
