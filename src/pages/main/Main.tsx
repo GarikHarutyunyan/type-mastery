@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, {useState} from 'react';
 import {useInputText} from '../../hooks/useInputText';
-import styles from '../../styles/Main.module.css';
+import styles from './Main.module.css';
 
 export const Main: React.FC = () => {
   const [inputText, setPressedKey] = useState<string>('');
