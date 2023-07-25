@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useInputText } from '../../hooks/useInputText';
 import styles from "../../styles/Main.module.css";
+import { ThemeSwitcher } from '../../components/ThemeSwitcher';
 
 export const Main: React.FC = () => {
     const [inputText, setPressedKey] = useState<string>("");
@@ -14,6 +15,7 @@ export const Main: React.FC = () => {
 
     return (
         <div className={styles.container}>
+            <ThemeSwitcher />
             <div>
                 {
                     initialSplittedText.map((letter, index)=>
