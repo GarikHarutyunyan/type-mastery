@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useTimer } from '../hooks/useTimer'
 import Modal from './Modal';
 
-export const TimeBar = ({isStopped, textLength}: any) => {
-  const {seconds} = useTimer(isStopped);
+export const TimeBar = ({hasStopped, textLength}: any) => {
+  const {seconds} = useTimer(hasStopped);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const handleOpenModal = () => {
@@ -19,14 +19,15 @@ export const TimeBar = ({isStopped, textLength}: any) => {
   const WPM = (textLength / 5) / secToMin;
 
   useEffect(() => {
-    if (isStopped === true) {
+    if (hasStopped === true) {
       handleOpenModal();
     }
-  }, [WPM, isStopped]);
+    console.log(hasStopped)
+  }, [WPM, hasStopped]);
 
   return (
     <div>
-      {isStopped && 
+      {hasStopped && 
       <Modal isOpen={modalOpen} onClose={handleCloseModal}>
         <h2>{WPM} WPM</h2>
       </Modal>}
