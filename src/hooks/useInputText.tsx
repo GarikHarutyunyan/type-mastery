@@ -20,7 +20,6 @@ export const useInputText = (callback: (key: string) => void) => {
         inputText.current += e?.key;
       }
       callback(inputText.current);
-      console.log(inputText.current);
     },
     [callback]
   );
@@ -31,7 +30,11 @@ export const useInputText = (callback: (key: string) => void) => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleKeyDown]);
+  }, []);
 
-  return handleKeyDown;
+  const clearData = (): void => {
+    inputText.current = '';
+  };
+
+  return {clearData};
 };

@@ -30,3 +30,34 @@
   vertical-align: bottom;
 
 }
+
+.textCursor {
+  font-size: 45px;
+  color: rgb(77, 77, 77);
+  line-height: 70px;
+  position: absolute;
+  margin-left: -6px;
+  margin-top: -5px;
+}
+
+.previousTextCursor {
+  color: rgb(150, 150, 150);
+}
+
+.blink {
+
+  animation: blink-animation 0.75s steps(5, start) infinite;
+  -webkit-animation: blink-animation 0.75s steps(5, start) infinite;
+}
+
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
