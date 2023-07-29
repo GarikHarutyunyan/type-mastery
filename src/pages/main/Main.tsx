@@ -1,7 +1,8 @@
 import clsx from 'clsx';
 import React, {useEffect, useRef, useState} from 'react';
-import {useInputText} from '../../hooks/useInputText';
+
 import styles from './Main.module.css';
+import {useInputText} from '../../hooks/useInputText';
 
 interface IMove {
   time: number;
@@ -10,12 +11,12 @@ interface IMove {
 
 export const Main: React.FC = () => {
   const startTime = useRef<number>(0);
-  const currentTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
   const [inputText, setPressedKey] = useState<string>('');
-  const [isReadyToStart, setIsReadyToStart] = useState<boolean>(true);
-  const [previousMoves, setPreviousMoves] = useState<IMove[]>([]);
   const [currentMoves, setCurrentMoves] = useState<IMove[]>([]);
-  const [previouseCursorPosition, setPreviouseCursorPosition] = useState<
+  const [previousMoves, setPreviousMoves] = useState<IMove[]>([]);
+  const [isReadyToStart, setIsReadyToStart] = useState<boolean>(true);
+  const currentTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
+  const [previousCursorPosition, setPreviousCursorPosition] = useState<
     number | null
   >(null);
 
@@ -52,7 +53,7 @@ export const Main: React.FC = () => {
       const {time, position} = currentMove;
       currentTimeout.current = setTimeout(() => {
         if (!isReadyToStart) {
-          setPreviouseCursorPosition(position);
+          setPreviousCursorPosition(position);
           previousMoves.shift();
           showNextMove();
         }
@@ -65,7 +66,7 @@ export const Main: React.FC = () => {
     setPressedKey('');
     clearData();
     setPreviousMoves(currentMoves);
-    setPreviouseCursorPosition(null);
+    setPreviousCursorPosition(null);
     setCurrentMoves([]);
     startTime.current = 0;
 
@@ -85,7 +86,7 @@ export const Main: React.FC = () => {
           const isIncorrect: boolean = !isCorrect && index < inputText.length;
           const isLastTyppedLetter: boolean = index === inputText.length;
           const isPreviousCursorPosition: boolean =
-            index === previouseCursorPosition;
+            index === previousCursorPosition;
 
           return (
             <>
