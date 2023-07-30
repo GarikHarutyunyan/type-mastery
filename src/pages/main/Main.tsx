@@ -81,6 +81,7 @@ export const Main: React.FC = () => {
         {'Restart'}
       </button>
       <div>
+        <ThemeSwitcher />
         {initialSplittedText.map((letter, index) => {
           const isCorrect: boolean = letter === inputText[index];
           const isIncorrect: boolean = !isCorrect && index < inputText.length;
@@ -90,7 +91,6 @@ export const Main: React.FC = () => {
 
           return (
             <>
-              <ThemeSwitcher />
               {isPreviousCursorPosition && (
                 <span
                   className={clsx(
