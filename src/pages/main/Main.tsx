@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import React, {useEffect, useRef, useState} from 'react';
-
-import styles from './Main.module.css';
+import {ThemeSwitcher} from '../../components/ThemeSwitcher';
 import {useInputText} from '../../hooks/useInputText';
+import styles from './Main.module.css';
 
 interface IMove {
   time: number;
@@ -81,6 +81,7 @@ export const Main: React.FC = () => {
         {'Restart'}
       </button>
       <div>
+        <ThemeSwitcher />
         {initialSplittedText.map((letter, index) => {
           const isCorrect: boolean = letter === inputText[index];
           const isIncorrect: boolean = !isCorrect && index < inputText.length;
