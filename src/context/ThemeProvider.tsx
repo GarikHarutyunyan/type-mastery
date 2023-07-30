@@ -1,19 +1,25 @@
 import { ReactNode, useState } from "react";
 import { ThemeContext } from "./ThemeContext";
 
-type Props = {
+interface IThemeProvider {
     children: ReactNode;
 };
 
-export const ThemeProvider = ({ children }: Props) => {
-    const [theme, setTheme] = useState<'light' | 'dark'>(
-        (localStorage.getItem('theme') as 'light' | 'dark') || 'dark'
+export enum Theme {
+    Light = 'light',
+    Dark = 'dark'
+}
+
+export const ThemeProvider = ({ children }: IThemeProvider) => {
+    const [theme, setTheme] = useState<Theme>(
+        (localStorage?.getItem('theme') as Theme) || Theme.Dark
     );
 
     const toggleTheme = (): void => {
-        const val = theme === 'light' ? 'dark' : 'light';
-        setTheme(val);
-        localStorage.setItem('theme', val);
+        const currentTheme = (theme === Theme.Light ? Theme.Dark : Theme.Light);
+
+        setTheme(currentTheme);
+        localStorage.setItem('theme', currentTheme);
     };
 
     return (
