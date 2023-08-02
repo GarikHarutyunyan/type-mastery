@@ -80,9 +80,9 @@ export const Main: React.FC = () => {
       <button onClick={onRestart} style={{height: '50px', width: '200px'}}>
         {'Restart'}
       </button>
+      <ThemeSwitcher />
       <div className={styles.textArea}>
         <div>
-          <ThemeSwitcher />
           {initialSplittedText.map((letter, index) => {
             const isCorrect: boolean = letter === inputText[index];
             const isIncorrect: boolean = !isCorrect && index < inputText.length;
