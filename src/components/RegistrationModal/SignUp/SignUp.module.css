@@ -1,0 +1,226 @@
+.innerWindow {
+    height: 100%;
+    width: 100%;
+    background-color: #9DB2BF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 20px 20px 20px 10px #508585;
+    border-radius: 20px;
+}
+
+.image {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.COMPANY {
+    color: #9DB2BF;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+.LOGO {
+    color: antiquewhite;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo {
+    height: 120px;
+    width: 120px;
+    background-color: darkslategrey;
+    border: 4px solid #9DB2BF;
+    border-radius: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Registration {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslategrey;
+    flex-direction: column;
+    border-radius: 20px;
+    padding-bottom: 8%;
+}
+
+.headerText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.headText {
+    color: antiquewhite;
+    font-size: 20px;
+}
+
+.innerHeadText {
+    color: #9DB2BF;
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.NAME {
+    color: antiquewhite;
+    font-size: 10px;
+}
+
+.name {
+    width: 100%;
+    height: 26px;
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.inputName {
+    width: 60%;
+    height: 34px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.USERNAME {
+    color: antiquewhite;
+    font-size: 10px;
+}
+
+.username {
+    width: 100%;
+    height: 26px;
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.InputUsername {
+    width: 60%;
+    height: 34px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.EMAIL {
+    color: antiquewhite;
+    font-size: 10px;
+}
+
+.email {
+    width: 100%;
+    height: 26px;
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.inputEmail {
+    width: 60%;
+    height: 34px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.PASSWORD {
+    color: antiquewhite;
+    font-size: 10px;
+}
+
+.password {
+    width: 100%;
+    height: 26px;
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.inputPassword {
+    width: 60%;
+    height: 34px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.CONFIRM_PASSWORD {
+    color: antiquewhite;
+    font-size: 10px;
+}
+
+.confirm_password {
+    width: 100%;
+    height: 26px;
+    background-color: darkslategrey;
+    color: whitesmoke;
+}
+
+.inputConfirmPassword {
+    width: 60%;
+    height: 34px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.checkbox {
+    width: 60%;
+    height: 34px;
+    padding: 10px;
+    display: flex;
+}
+
+.check {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.checkmark {
+    color: antiquewhite;
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+.buttonCreate {
+    width: 60%;
+    height: 34px;
+    padding: 10px;
+}
+
+.buttonInput {
+    background-color: darkslategrey;
+    width: 100%;
+    height: 34px;
+    color: #9DB2BF;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.buttonInput:hover {
+    background-color: #9DB2BF;
+    color: darkslategrey;
+}
+
+.buttonInput:active {
+    background-color: #75adaf;
+}
+
+
+.textLogin {
+    color: whitesmoke;
+    font-size: 12px;
+}
+
+.LoginLink {
+    color: whitesmoke;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.LoginLink:hover {
+    text-decoration: underline;
+}
