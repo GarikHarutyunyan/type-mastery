@@ -65,7 +65,6 @@ export const Header = () => {
                 onClose={closeModal}
             />
             <RegistrationModal
-                title={'Registration modal'}
                 isVisible={isRegistrationModalVisible}
                 onClose={closeRegistrationModal}
             />
