@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   margin: 40px;
+  background-color: #fff;
 }
 
 .letter {
@@ -47,6 +48,36 @@
   -webkit-animation: blink-animation 0.75s steps(5, start) infinite;
 }
 
+.textArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  width: 50%;
+  height: 50%;
+  margin: 20px;
+  padding: 40px;
+  border: 2px solid #9DB2BF;
+  border-radius: 8px;
+}
+
+.restartBtn {
+  height: 30%;
+  width: 30%;
+  border: 1px solid #9DB2BF;
+  border-radius: inherit;
+  background-color: whitesmoke;
+  color: #606e77;
+  margin-top: 20px;
+  padding: 12px;
+}
+
+.restartBtn:hover {
+  background-color: #ccc;
+  color: #424c52;
+  cursor: pointer;
+}
+
 @keyframes blink-animation {
   0% {
     opacity: 1;
@@ -59,16 +90,4 @@
   100% {
     opacity: 1;
   }
-}
-
-.textArea {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 50%;
-  margin: 20px;
-  padding: 40px;
-  border: 2px solid #9DB2BF;
-  border-radius: 8px;
 }

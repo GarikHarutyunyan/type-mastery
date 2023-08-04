@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import React, {useEffect, useRef, useState} from 'react';
-import {ThemeSwitcher} from '../../components/ThemeSwitcher';
 import {useInputText} from '../../hooks/useInputText';
 import styles from './Main.module.css';
 
@@ -77,10 +76,6 @@ export const Main: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <button onClick={onRestart} style={{height: '50px', width: '200px'}}>
-        {'Restart'}
-      </button>
-      <ThemeSwitcher />
       <div className={styles.textArea}>
         <div>
           {initialSplittedText.map((letter, index) => {
@@ -123,6 +118,9 @@ export const Main: React.FC = () => {
             );
           })}
         </div>
+        <button onClick={onRestart} className={styles.restartBtn}>
+          Restart
+        </button>
       </div>
     </div>
   );

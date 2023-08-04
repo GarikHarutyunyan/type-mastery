@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Modal} from '../../components/Modal';
 import './Header.module.css';
+import DarkMode from "../../components/LightDarkMode/DarkMode";
 
 const logo = '/typing.png';
 
@@ -39,6 +40,7 @@ export const Header = () => {
               </li>
             </div>
           </ul>
+          <DarkMode/>
         </nav>
       </header>
       <Modal
@@ -46,7 +48,7 @@ export const Header = () => {
         info={'You are already in home page.You are already in home page.'}
         isVisible={isModalVisible}
         onClose={closeModal}
-      ></Modal>
+      />
     </>
   );
 };
