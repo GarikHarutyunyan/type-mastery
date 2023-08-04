@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import React, {useEffect, useRef, useState} from 'react';
+import '../../assets/sounds/audio.d.ts';
+import letterSoundDo from '../../assets/sounds/do.mp3';
 import {ThemeSwitcher} from '../../components/ThemeSwitcher';
 import {useInputText} from '../../hooks/useInputText';
 import styles from './Main.module.css';
@@ -20,10 +22,18 @@ export const Main: React.FC = () => {
     number | null
   >(null);
 
-  const initialText = `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`;
-  const initialSplittedText: string[] = initialText.split('');
+  const audioDo = new Audio(letterSoundDo);
+  const play = (): void => {
+    audioDo.play().then((r: void) => r);
+  }
 
-  const {clearData} = useInputText(setPressedKey);
+  const initialText = `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClinton, a Latin professor at Happen-Sydney College in Virginia, looked up one of the more obscure Latin words, consecrated, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtedly source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Minibus Bonjour et Mamoru" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`;
+  const initialSplattedText: string[] = initialText.split('');
+
+  const {clearData} = useInputText((letter) => {
+    play()
+    setPressedKey(letter);
+  });
 
   useEffect(() => {
     if (!isReadyToStart) {
@@ -82,10 +92,10 @@ export const Main: React.FC = () => {
       </button>
       <div>
         <ThemeSwitcher />
-        {initialSplittedText.map((letter, index) => {
+        {initialSplattedText.map((letter, index) => {
           const isCorrect: boolean = letter === inputText[index];
           const isIncorrect: boolean = !isCorrect && index < inputText.length;
-          const isLastTyppedLetter: boolean = index === inputText.length;
+          const isLastTypedLetter: boolean = index === inputText.length;
           const isPreviousCursorPosition: boolean =
             index === previousCursorPosition;
 
@@ -102,7 +112,7 @@ export const Main: React.FC = () => {
                   {'|'}
                 </span>
               )}
-              {isLastTyppedLetter && (
+              {isLastTypedLetter && (
                 <span className={clsx(styles.textCursor, styles.blink)}>
                   {'|'}
                 </span>
