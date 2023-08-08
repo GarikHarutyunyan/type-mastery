@@ -41,7 +41,7 @@
     flex-direction: column;
 }
 
-.Registration {
+.registration {
     width: 50%;
     height: 100%;
     display: flex;
@@ -148,4 +148,12 @@
 
 .CreateAccountLink:hover {
     text-decoration: underline;
+}
+
+.xBtn {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
 }
