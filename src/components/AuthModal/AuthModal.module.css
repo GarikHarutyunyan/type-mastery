@@ -1,0 +1,11 @@
+.registrationModal__closeButton {
+  width: 36px;
+  height: 32px;
+  font-size: 18px;
+  font-weight: bold;
+  color: darkslategrey;
+  background: #9DB2BF;
+  cursor: pointer;
+  border-radius: 12px;
+  margin: 6px;
+}
