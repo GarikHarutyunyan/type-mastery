@@ -64,7 +64,7 @@ input:checked + .slider {
     --linkColor: whitesmoke !important;
 }
 
-body {
+.body {
     background-color: var(--backgroundColor) !important;
     color: var(--fontColor) !important;
 }
