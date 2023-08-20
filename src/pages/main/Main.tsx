@@ -86,7 +86,7 @@ export const Main: React.FC = () => {
               index === previousCursorPosition;
 
             return (
-              <>
+              <React.Fragment key={`${letter}_${index}`}>
                 {isPreviousCursorPosition && (
                   <span
                     className={clsx(
@@ -104,7 +104,6 @@ export const Main: React.FC = () => {
                   </span>
                 )}
                 <span
-                  key={`${letter}_${index}`}
                   className={clsx(
                     styles.letter,
                     {[styles.letter_space]: letter === ' '},
@@ -114,7 +113,7 @@ export const Main: React.FC = () => {
                 >
                   {letter}
                 </span>
-              </>
+              </React.Fragment>
             );
           })}
         </div>

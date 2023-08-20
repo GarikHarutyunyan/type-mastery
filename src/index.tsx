@@ -6,12 +6,12 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 reportWebVitals();
