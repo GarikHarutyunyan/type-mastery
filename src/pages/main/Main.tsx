@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import React, {useEffect, useRef, useState} from 'react';
-import {ThemeSwitcher} from '../../components/ThemeSwitcher';
 import {useInputText} from '../../hooks/useInputText';
 import styles from './Main.module.css';
 
@@ -77,50 +76,50 @@ export const Main: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <button onClick={onRestart} style={{height: '50px', width: '200px'}}>
-        {'Restart'}
-      </button>
-      <div>
-        <ThemeSwitcher />
-        {initialSplittedText.map((letter, index) => {
-          const isCorrect: boolean = letter === inputText[index];
-          const isIncorrect: boolean = !isCorrect && index < inputText.length;
-          const isLastTyppedLetter: boolean = index === inputText.length;
-          const isPreviousCursorPosition: boolean =
-            index === previousCursorPosition;
+      <div className={styles.textArea}>
+        <div>
+          {initialSplittedText.map((letter, index) => {
+            const isCorrect: boolean = letter === inputText[index];
+            const isIncorrect: boolean = !isCorrect && index < inputText.length;
+            const isLastTyppedLetter: boolean = index === inputText.length;
+            const isPreviousCursorPosition: boolean =
+              index === previousCursorPosition;
 
-          return (
-            <>
-              {isPreviousCursorPosition && (
+            return (
+              <React.Fragment key={`${letter}_${index}`}>
+                {isPreviousCursorPosition && (
+                  <span
+                    className={clsx(
+                      styles.textCursor,
+                      styles.previousTextCursor,
+                      styles.blink
+                    )}
+                  >
+                    {'|'}
+                  </span>
+                )}
+                {isLastTyppedLetter && (
+                  <span className={clsx(styles.textCursor, styles.blink)}>
+                    {'|'}
+                  </span>
+                )}
                 <span
                   className={clsx(
-                    styles.textCursor,
-                    styles.previousTextCursor,
-                    styles.blink
+                    styles.letter,
+                    {[styles.letter_space]: letter === ' '},
+                    {[styles.correct]: isCorrect},
+                    {[styles.incorrect]: isIncorrect}
                   )}
                 >
-                  {'|'}
+                  {letter}
                 </span>
-              )}
-              {isLastTyppedLetter && (
-                <span className={clsx(styles.textCursor, styles.blink)}>
-                  {'|'}
-                </span>
-              )}
-              <span
-                key={`${letter}_${index}`}
-                className={clsx(
-                  styles.letter,
-                  {[styles.letter_space]: letter === ' '},
-                  {[styles.correct]: isCorrect},
-                  {[styles.incorrect]: isIncorrect}
-                )}
-              >
-                {letter}
-              </span>
-            </>
-          );
-        })}
+              </React.Fragment>
+            );
+          })}
+        </div>
+        <button onClick={onRestart} className={styles.restartBtn}>
+          Restart
+        </button>
       </div>
     </div>
   );

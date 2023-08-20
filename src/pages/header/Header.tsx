@@ -1,19 +1,20 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Modal} from '../../components/Modal';
 import './Header.module.css';
+import {AuthModal} from '../components/AuthModal/AuthModal';
+import {ThemeSwitch} from './ThemeSwitch/ThemeSwitch';
 
 const logo = '/typing.png';
 
 export const Header = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAuthModalVisible, setIsAuthModalVisible] = useState(false);
 
-  const showModal = (): void => {
-    setIsModalVisible(true);
+  const showAuthModal = (): void => {
+    setIsAuthModalVisible(true);
   };
 
-  const closeModal = (): void => {
-    setIsModalVisible(false);
+  const closeAuthModal = (): void => {
+    setIsAuthModalVisible(false);
   };
 
   return (
@@ -24,26 +25,22 @@ export const Header = () => {
             <img src={logo} alt="logo" />
             <div className="container">
               <li>
-                <Link to="/" onClick={showModal}>
-                  Home
+                <Link to="/">{'Home'}</Link>
+              </li>
+              <li>
+                <Link to="/">{'About Us'}</Link>
+              </li>
+              <li>
+                <Link to="/" onClick={showAuthModal}>
+                  {'Sign in'}
                 </Link>
-              </li>
-              <li>
-                <Link to="/">About Us</Link>
-              </li>
-              <li>
-                <Link to="/">Login</Link>
               </li>
             </div>
           </ul>
+          <ThemeSwitch />
         </nav>
       </header>
-      <Modal
-        title={'Home page modal'}
-        info={'You are already in home page.You are already in home page.'}
-        isVisible={isModalVisible}
-        onClose={closeModal}
-      ></Modal>
+      <AuthModal isVisible={isAuthModalVisible} onClose={closeAuthModal} />
     </>
   );
 };

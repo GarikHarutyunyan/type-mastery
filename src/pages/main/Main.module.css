@@ -1,15 +1,15 @@
 .container {
-  position: relative;
-  border: 1px solid red;
-  text-align: center;
-  margin: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px;
+  background-color: #fff;
 }
 
 .letter {
-  font-size: 45px;
-  font-weight: bold;
-  color: grey;
-  line-height: 70px;
+  font-size: 24px;
+  color: #606e77;
+  line-height: 40px;
   padding: 0 1px;
   transition: 0.2s ease-out;
 }
@@ -24,20 +24,19 @@
 
 .letter_space {
   display: inline-block;
-  height: 10px;
-  width: 35px;
-  margin: 5px;
+  height: 32px;
+  width: 12px;
+  margin-bottom: 4px;
   vertical-align: bottom;
-
 }
 
 .textCursor {
-  font-size: 45px;
+  font-size: 32px;
   color: rgb(77, 77, 77);
   line-height: 70px;
   position: absolute;
-  margin-left: -6px;
-  margin-top: -5px;
+  margin-left: -3px;
+  margin-top: -20px;
 }
 
 .previousTextCursor {
@@ -47,6 +46,36 @@
 .blink {
   animation: blink-animation 0.75s steps(5, start) infinite;
   -webkit-animation: blink-animation 0.75s steps(5, start) infinite;
+}
+
+.textArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  width: 50%;
+  height: 50%;
+  margin: 20px;
+  padding: 40px;
+  border: 2px solid #9DB2BF;
+  border-radius: 8px;
+}
+
+.restartBtn {
+  height: 30%;
+  width: 30%;
+  border: 1px solid #9DB2BF;
+  border-radius: inherit;
+  background-color: whitesmoke;
+  color: #606e77;
+  margin-top: 20px;
+  padding: 12px;
+}
+
+.restartBtn:hover {
+  background-color: #ccc;
+  color: #424c52;
+  cursor: pointer;
 }
 
 @keyframes blink-animation {
