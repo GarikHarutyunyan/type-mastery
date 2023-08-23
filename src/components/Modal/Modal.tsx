@@ -1,4 +1,4 @@
-import {createPortal} from 'react-dom';
+  import {createPortal} from 'react-dom';
 import styles from './Modal.module.css';
 import {ReactElement} from 'react';
 import clsx from 'clsx';
