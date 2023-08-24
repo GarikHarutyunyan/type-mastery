@@ -1,7 +1,8 @@
-  import {createPortal} from 'react-dom';
+import { createPortal } from 'react-dom';
 import styles from './Modal.module.css';
-import {ReactElement} from 'react';
+import { ReactElement } from 'react';
 import clsx from 'clsx';
+import { IoMdClose } from "react-icons/io";
 
 interface IModalProps {
   title: string;
@@ -11,14 +12,15 @@ interface IModalProps {
   className?: string;
 }
 
-const Modal = ({title, info, isVisible, onClose, className}: IModalProps) => {
+const Modal = ({ title, info, isVisible, onClose, className }: IModalProps) => {
   const children = (
     <div className={clsx(styles.modal, className)}>
       <div className={styles.modal__header}>
         <h2>{title}</h2>
-        <button onClick={onClose} className={styles.modal__closeButton}>
-          {'X'}
-        </button>
+        {/* <button onClick={onClose} className={styles.modal__closeButton}> */}
+        {/* {'X'} */}
+        <IoMdClose onClick={onClose} className={styles.modal__closeButton} />
+        {/* </button> */}
       </div>
       <div className={styles.modal__content}>{info}</div>
     </div>
@@ -30,4 +32,4 @@ const Modal = ({title, info, isVisible, onClose, className}: IModalProps) => {
   return isVisible ? createPortal(children, element) : null;
 };
 
-export {Modal};
+export { Modal };

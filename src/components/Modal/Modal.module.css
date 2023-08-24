@@ -2,15 +2,17 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   background-color: whitesmoke;
-  border: 2px solid rgb(240, 240, 240);
-  border-radius: 12px;
+  border-radius: 10px;
   position: absolute;
-  height: 600px;
-  width: 700px;
-  top: 20%;
-  left: calc(50% - 350px);
+  height: 50%;
+  width: 50%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 .modal__header {
@@ -21,11 +23,15 @@
 }
 
 .modal__closeButton {
-  width: 35px;
-  height: 35px;
-  background: transparent;
-  border: 0;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
+  color: gray;
+  transition: .2s ease-in;
+}
+
+.modal__closeButton:hover {
+  color: black;
 }
 
 .modal__content {
