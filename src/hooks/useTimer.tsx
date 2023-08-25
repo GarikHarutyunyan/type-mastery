@@ -1,48 +1,35 @@
-import React, { useRef, MouseEvent, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 
-export const useTimer = (stopState: boolean) => {
-  const [seconds, setSeconds] = React.useState<number>(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+export const useTimer = () => {
+  const [seconds, setSeconds] = useState<number>(0);
+  const [isStarted, setIsStated] = useState<boolean>(false);
 
-  // const handleStop = (e: MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
+  const start = () => {
+    setIsStated(true);
+  };
 
-  //   if (intervalRef.current) {
-  //       clearInterval(intervalRef.current);
-  //       intervalRef.current = null;
-  //   }
+  const stop = () => {
+    setIsStated(false);
+  };
 
-  //   setSeconds(0);
-  // };
-
-  // const handleBegin = (e: MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-    
-  //   intervalRef.current = setInterval(() => {
-  //       setSeconds(prevSecond => prevSecond + 1);
-  //   }, 1000);
-  // }
+  const restart = () => {
+    setSeconds(0);
+    setIsStated(true);
+  };
 
   useEffect(() => {
-      if (stopState && intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-    }
-  }, [stopState]);
+    let timer: NodeJS.Timer;
 
-  useEffect(() => {
-    if (!stopState) {
-      intervalRef.current = setInterval(() => {
-      setSeconds(prevSecond => prevSecond + 1);
+    if (isStarted) {
+      timer = setInterval(() => {
+        setSeconds((prevState) => prevState + 1);
       }, 1000);
-      
-      return () => {
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-        }
-      };
     }
-  }, [stopState]);
 
-  return {seconds};
-}
+    return () => {
+      clearInterval(timer);
+    };
+  }, [isStarted]);
+
+  return {seconds, restart, start, stop};
+};

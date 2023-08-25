@@ -1,0 +1,10 @@
+footer {
+  width: 100%;
+  background-color: #9DB2BF;
+  padding: 20px 60px 20px 60px;
+  font-size: 60px;
+  color: whitesmoke;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 -2px 5px -1px,
+  rgba(0, 0, 0, 0.3) 0 -1px 3px -1px;
+}
+
