@@ -5,6 +5,7 @@ import styles from './Main.module.css';
 import {Modal} from '../../components/Modal';
 import {useTimer} from '../../hooks/useTimer';
 import {AccuracyAndWPM} from '../components/shared/AccuracyAndWPM';
+import {usePrevious} from '../../hooks/usePrevious';
 
 interface IMove {
   time: number;
@@ -22,6 +23,10 @@ export const Main: React.FC = () => {
   const [previousCursorPosition, setPreviousCursorPosition] = useState<
     number | null
   >(null);
+
+  const previousInputText: string | null = usePrevious<string>(inputText);
+  console.log('🚀 ~ file: Main.tsx:19 ~ inputText:', inputText);
+  console.log('🚀 ~ file: Main.tsx:28 ~ previousInputText:', previousInputText);
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const timer = useTimer();
