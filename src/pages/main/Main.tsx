@@ -25,8 +25,7 @@ export const Main: React.FC = () => {
   >(null);
 
   const previousInputText: string | null = usePrevious<string>(inputText);
-  console.log('🚀 ~ file: Main.tsx:19 ~ inputText:', inputText);
-  console.log('🚀 ~ file: Main.tsx:28 ~ previousInputText:', previousInputText);
+  const [correctLetters, setCorrectLetters] = useState<number>(0);
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const timer = useTimer();
@@ -120,6 +119,16 @@ export const Main: React.FC = () => {
     setIsFocused(true);
   };
 
+  useEffect(() => {
+    if (
+      previousInputText &&
+      previousInputText[previousInputText?.length - 1] ===
+        initialSplittedText[previousInputText.length - 1]
+    ) {
+      setCorrectLetters((prevState: number) => prevState + 1);
+    }
+  }, [previousInputText?.length]);
+
   return (
     <div
       ref={divRef}
@@ -184,6 +193,7 @@ export const Main: React.FC = () => {
           <AccuracyAndWPM
             seconds={timer.seconds}
             totalCharsCount={initialText.length}
+            correctLetters={correctLetters}
           />
         }
         isVisible={openModal}

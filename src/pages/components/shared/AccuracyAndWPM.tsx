@@ -1,17 +1,26 @@
 import React from 'react';
 
 export interface IAccuracyAndWPMProps {
-    seconds: number;
-    totalCharsCount: number;
+  seconds: number;
+  totalCharsCount: number;
+  correctLetters: number;
 }
 
-export const AccuracyAndWPM: React.FC<IAccuracyAndWPMProps> = ({ seconds, totalCharsCount }) => {
-    const minutes = seconds / 60;
-    const grossWPM = (totalCharsCount / 5);
-    const WPM = Math.round(grossWPM / minutes);
+export const AccuracyAndWPM: React.FC<IAccuracyAndWPMProps> = ({
+  seconds,
+  totalCharsCount,
+  correctLetters,
+}) => {
+  const minutes = seconds / 60;
+  const grossWPM = totalCharsCount / 5;
+  const WPM = Math.round(grossWPM / minutes);
 
-    console.log(minutes);
-    return (
-        <div>WPM {WPM}</div>
-    )
-}
+  const accuracy = Math.round((correctLetters / totalCharsCount) * 100);
+
+  return (
+    <div>
+      <div>WPM {WPM}</div>
+      <div>Accuracy: {accuracy}%</div>
+    </div>
+  );
+};

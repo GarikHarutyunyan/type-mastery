@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
+
+import {Modal} from '../../../components/Modal';
 import {SignInForm} from '../SignInForm/SignInForm';
 import {SignUpForm} from '../SignUpForm/SignUpForm';
-import {Modal} from '../../../components/Modal';
 
 interface IModalProps {
   isVisible: boolean;
