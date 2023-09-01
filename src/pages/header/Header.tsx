@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-import './Header.module.css';
+import styles from './Header.module.css';
 import {AuthModal} from '../components/AuthModal/AuthModal';
 import {ThemeSwitch} from './ThemeSwitch/ThemeSwitch';
 
@@ -22,8 +22,10 @@ export const Header = () => {
       <header>
         <nav>
           <ul>
-            <img src={logo} alt="logo" />
-            <div className="container">
+            <div className={styles.container}>
+              <img src={logo} alt="logo" className={styles.logo} />
+            </div>
+            <div className={styles.container}>
               <li>
                 <Link to="/">{'Home'}</Link>
               </li>

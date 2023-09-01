@@ -1,7 +1,7 @@
 header {
   width: 100%;
   background-color: #9DB2BF;
-  padding: 20px 60px 20px 60px;
+  padding: 2px 60px;
   box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
 }
@@ -19,7 +19,7 @@ ul {
   align-items: center;
 }
 
-ul > div {
+ul>div {
   display: flex;
 }
 
@@ -43,7 +43,14 @@ a:hover {
   color: #526D82;
 }
 
-img {
-  width: 120px;
-  height: 80px;
+.logo {
+  width: 64px;
+  height: 52px;
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.container {
+  display: flex;
+  align-items: center;
 }

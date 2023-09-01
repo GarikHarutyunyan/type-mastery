@@ -24,11 +24,19 @@ export const useInputText = (callback: (key: string) => void) => {
     [callback]
   );
 
+  const listenKeyboardEvents = () => {
+    document.addEventListener?.('keydown', handleKeyDown);
+  };
+
+  const removeKeyboardEvents = () => {
+    document.removeEventListener?.('keydown', handleKeyDown);
+  };
+
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
+    listenKeyboardEvents();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      removeKeyboardEvents();
     };
   }, []);
 
@@ -36,5 +44,5 @@ export const useInputText = (callback: (key: string) => void) => {
     inputText.current = '';
   };
 
-  return {clearData};
+  return {clearData, listenKeyboardEvents, removeKeyboardEvents};
 };

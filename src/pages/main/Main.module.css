@@ -61,6 +61,10 @@
   border-radius: 8px;
 }
 
+.textArea_blured {
+  opacity: 0.4;
+}
+
 .restartBtn {
   height: 30%;
   width: 30%;
