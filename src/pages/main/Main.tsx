@@ -1,5 +1,11 @@
 import clsx from 'clsx';
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {useInputText} from '../../hooks/useInputText';
 import styles from './Main.module.css';
 import {Modal} from '../../components/Modal';
@@ -24,7 +30,7 @@ export const Main: React.FC = () => {
     number | null
   >(null);
 
-  const previousInputText: string | null = usePrevious<string>(inputText);
+  const previousInputText: string | null = useDeferredValue<string>(inputText);
   const [correctLetters, setCorrectLetters] = useState<number>(0);
 
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -85,6 +91,7 @@ export const Main: React.FC = () => {
     setPreviousMoves(currentMoves);
     setPreviousCursorPosition(null);
     setCurrentMoves([]);
+    setCorrectLetters(0);
     startTime.current = 0;
 
     if (currentTimeout) {
@@ -106,7 +113,10 @@ export const Main: React.FC = () => {
     if (inputText?.length === initialText?.length) {
       setOpenModal(true);
       timer.stop();
+      removeKeyboardEvents();
     }
+
+    console.log(correctLetters);
   }, [inputText?.length]);
 
   const onBlur = (): void => {
