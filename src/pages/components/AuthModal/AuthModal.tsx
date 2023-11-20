@@ -1,8 +1,12 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 
-import {Modal} from '../../../components/Modal';
 import {SignInForm} from '../SignInForm/SignInForm';
 import {SignUpForm} from '../SignUpForm/SignUpForm';
+import {Modal} from '../../../components/Modal';
+import {UserClient} from '../../../clients/UserClient';
+import {IUserDTO} from '../../../data-structures/dto/IUserDTO';
+import {AuthClient} from '../../../clients/AuthClient';
+import {AuthenticationContext, IUser} from '../../../contexts';
 
 interface IModalProps {
   isVisible: boolean;
@@ -15,19 +19,37 @@ export enum AuthMode {
 }
 
 const AuthModal = ({isVisible, onClose}: IModalProps) => {
+  const {setUser} = useContext(AuthenticationContext);
   const [mode, setMode] = useState<AuthMode>(AuthMode.SIGN_IN);
   const inSignInMode = mode === AuthMode.SIGN_IN;
   const title = inSignInMode ? 'Sign In' : 'Sign Up';
 
+  const onSignIn = async (user: IUserDTO): Promise<void> => {
+    try {
+      const newUserDTO: IUserDTO = await UserClient.signUp(user);
+      const newUser: IUser = {name: newUserDTO.username};
+
+      setUser(newUser);
+      onClose();
+    } catch (error) {
+      //TODO: remove alert and handle error
+      alert(error);
+    }
+  };
+
+  const onSignUp = async (user: IUserDTO): Promise<void> => {
+    const newUserDTO: IUserDTO = await UserClient.signUp(user);
+  };
+
   const info = inSignInMode ? (
     <SignInForm
-      onSignIn={() => alert(AuthMode.SIGN_IN)}
+      onSignIn={onSignIn}
       onSignUp={() => setMode(AuthMode.SIGN_UP)}
     />
   ) : (
     <SignUpForm
-      onSignIn={() => alert(AuthMode.SIGN_UP)}
-      onSignUp={() => setMode(AuthMode.SIGN_IN)}
+      onSignIn={() => setMode(AuthMode.SIGN_IN)}
+      onSignUp={onSignUp}
     />
   );
 
