@@ -165,7 +165,7 @@ export const Main: React.FC = () => {
         Paused
         <div>
           <img src="./cursor.png" alt="cursor" />
-          Click here to continue
+          <h4>Click here to continue</h4>
         </div>
       </div>
       <div
