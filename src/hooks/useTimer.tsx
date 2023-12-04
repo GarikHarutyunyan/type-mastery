@@ -17,6 +17,11 @@ export const useTimer = () => {
     setIsStated(true);
   };
 
+  const reset = () => {
+    setSeconds(0);
+    setIsStated(false);
+  };
+
   useEffect(() => {
     let timer: NodeJS.Timer;
 
@@ -31,5 +36,5 @@ export const useTimer = () => {
     };
   }, [isStarted]);
 
-  return {seconds, restart, start, stop};
+  return {seconds, restart, start, stop, reset};
 };

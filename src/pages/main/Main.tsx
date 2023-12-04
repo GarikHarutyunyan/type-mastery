@@ -11,7 +11,7 @@ import styles from './Main.module.css';
 import {Modal} from '../../components/Modal';
 import {useTimer} from '../../hooks/useTimer';
 import {AccuracyAndWPM} from '../components/shared/AccuracyAndWPM';
-import {usePrevious} from '../../hooks/usePrevious';
+import {useIsTabVisible} from '../../hooks/useIsTabVisible';
 
 interface IMove {
   time: number;
@@ -20,6 +20,7 @@ interface IMove {
 
 export const Main: React.FC = () => {
   const startTime = useRef<number>(0);
+  const isTabVisible = useIsTabVisible();
   const [isFocused, setIsFocused] = useState(true);
   const [inputText, setPressedKey] = useState<string>('');
   const [currentMoves, setCurrentMoves] = useState<IMove[]>([]);
@@ -31,7 +32,7 @@ export const Main: React.FC = () => {
   >(null);
 
   const previousInputText: string | null = useDeferredValue<string>(inputText);
-  const [correctLetters, setCorrectLetters] = useState<number>(0);
+  const correctLettersCount = useRef<number>(0);
 
   const [openModal, setOpenModal] = useState<boolean>(false);
   const timer = useTimer();
@@ -54,22 +55,6 @@ export const Main: React.FC = () => {
     }
   }, [isReadyToStart]);
 
-  useEffect(() => {
-    if (isReadyToStart && inputText.length === 1) {
-      startTime.current = Date.now();
-      setCurrentMoves([{time: 0, position: 1}]);
-      setIsReadyToStart(false);
-    } else if (startTime.current) {
-      const currentTime: number = Date.now();
-      const time: number = currentTime - startTime.current;
-      const position: number = inputText.length;
-      const newMove: IMove = {time, position};
-
-      startTime.current = currentTime;
-      setCurrentMoves((state) => [...state, newMove]);
-    }
-  }, [inputText.length]);
-
   const showNextMove = (): void => {
     const currentMove: IMove = previousMoves[0];
     if (currentMove) {
@@ -91,8 +76,9 @@ export const Main: React.FC = () => {
     setPreviousMoves(currentMoves);
     setPreviousCursorPosition(null);
     setCurrentMoves([]);
-    setCorrectLetters(0);
+    correctLettersCount.current = 0;
     startTime.current = 0;
+    timer.reset();
 
     if (currentTimeout) {
       clearTimeout(currentTimeout?.current);
@@ -101,22 +87,54 @@ export const Main: React.FC = () => {
 
   const handleCloseModal = () => {
     setOpenModal(false);
+    onRestart();
   };
 
   useEffect(() => {
-    if (inputText?.length) {
+    const isStarting: boolean = isReadyToStart && inputText.length > 0;
+    const isFinished: boolean = inputText?.length === initialText?.length;
+    const isNewLetterAdded: boolean =
+      !!inputText.length && inputText.length > previousInputText.length;
+    const isLetterRemoved: boolean =
+      !!previousInputText.length && inputText.length < previousInputText.length;
+
+    if (isStarting) {
       timer.start();
-    }
-  }, [inputText?.length]);
+      startTime.current = Date.now();
+      setCurrentMoves([{time: 0, position: 1}]);
+      setIsReadyToStart(false);
+    } else if (startTime.current) {
+      const currentTime: number = Date.now();
+      const time: number = currentTime - startTime.current;
+      const position: number = inputText.length;
+      const newMove: IMove = {time, position};
 
-  useEffect(() => {
-    if (inputText?.length === initialText?.length) {
+      startTime.current = currentTime;
+      setCurrentMoves((state) => [...state, newMove]);
+    }
+
+    if (isNewLetterAdded) {
+      const isLastLetterCorrect: boolean =
+        inputText.at(-1) === initialSplittedText.at(inputText.length - 1);
+
+      if (isLastLetterCorrect) {
+        correctLettersCount.current++;
+      }
+    } else if (isLetterRemoved) {
+      const wasRemovedLetterCorrect: boolean =
+        previousInputText.at(-1) ===
+        initialSplittedText[previousInputText.length - 1];
+
+      if (wasRemovedLetterCorrect) {
+        correctLettersCount.current--;
+      }
+    }
+
+    if (isFinished) {
       setOpenModal(true);
-      timer.stop();
       removeKeyboardEvents();
+      timer.stop();
     }
-
-    console.log(correctLetters);
   }, [inputText?.length]);
 
   const onBlur = (): void => {
@@ -130,28 +148,36 @@ export const Main: React.FC = () => {
   };
 
   useEffect(() => {
-    if (
-      previousInputText &&
-      previousInputText[previousInputText?.length - 1] ===
-        initialSplittedText[previousInputText.length - 1]
-    ) {
-      setCorrectLetters((prevState: number) => prevState + 1);
+    if (isFocused && isTabVisible) {
+      timer.start();
+    } else {
+      timer.stop();
     }
-  }, [previousInputText?.length]);
+  }, [isFocused, isTabVisible]);
 
   return (
-    <div
-      ref={divRef}
-      tabIndex={0}
-      className={styles.container}
-      onBlur={onBlur}
-      onFocus={onFocus}
-    >
+    <div className={styles.container}>
       <div
+        className={clsx(styles.pauseText, {
+          [styles.pauseTextInvisible]: isFocused,
+        })}
+      >
+        Paused
+        <div>
+          <img src="./cursor.png" alt="cursor" />
+          Click here to continue
+        </div>
+      </div>
+      <div
+        ref={divRef}
+        tabIndex={0}
+        onBlur={onBlur}
+        onFocus={onFocus}
         className={clsx(styles.textArea, {
           [styles.textArea_blured]: !isFocused,
         })}
       >
+        <div>{timer.seconds}</div>
         <div>
           {initialSplittedText?.map((letter, index) => {
             const isCorrect: boolean = letter === inputText[index];
@@ -203,11 +229,10 @@ export const Main: React.FC = () => {
           <AccuracyAndWPM
             seconds={timer.seconds}
             totalCharsCount={initialText.length}
-            correctLetters={correctLetters}
+            correctLetters={correctLettersCount.current}
           />
         }
         isVisible={openModal}
-        className=""
         onClose={handleCloseModal}
       />
     </div>
