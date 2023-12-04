@@ -23,7 +23,7 @@ export const Header = () => {
         <nav>
           <ul>
             <div className={styles.container}>
-              <img src={logo} alt="logo" className={styles.logo} />
+              <img src={logo} alt={'logo'} className={styles.logo} />
             </div>
             <div className={styles.container}>
               <li>
