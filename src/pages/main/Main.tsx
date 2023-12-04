@@ -148,12 +148,14 @@ export const Main: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isFocused && isTabVisible) {
-      timer.start();
-    } else {
-      timer.stop();
+    if (inputText.length) {
+      if (isFocused && isTabVisible) {
+        timer.start();
+      } else {
+        timer.stop();
+      }
     }
-  }, [isFocused, isTabVisible]);
+  }, [isFocused, inputText.length, isTabVisible]);
 
   return (
     <div className={styles.container}>
