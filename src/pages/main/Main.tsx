@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import {useInputText} from '../../hooks/useInputText';
 import styles from './Main.module.css';
-import {Modal} from '../../components/Modal';
+import {ModalDialog} from '../../components/Modal';
 import {useTimer} from '../../hooks/useTimer';
 import {AccuracyAndWPM} from '../components/shared/AccuracyAndWPM';
 import {useIsTabVisible} from '../../hooks/useIsTabVisible';
@@ -85,11 +85,6 @@ export const Main: React.FC = () => {
     }
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    onRestart();
-  };
-
   useEffect(() => {
     const isStarting: boolean = isReadyToStart && inputText.length > 0;
     const isFinished: boolean = inputText?.length === initialText?.length;
@@ -131,6 +126,7 @@ export const Main: React.FC = () => {
     }
 
     if (isFinished) {
+      console.log(1111);
       setOpenModal(true);
       removeKeyboardEvents();
       timer.stop();
@@ -170,6 +166,7 @@ export const Main: React.FC = () => {
           Click here to continue
         </div>
       </div>
+
       <div
         ref={divRef}
         tabIndex={0}
@@ -220,22 +217,27 @@ export const Main: React.FC = () => {
             );
           })}
         </div>
-        <button onClick={onRestart} className={styles.restartBtn}>
+        <button
+          onClick={onRestart}
+          className={clsx(styles.restartBtn, {
+            [styles.restartBtnActive]: !isFocused,
+          })}
+        >
           Restart
         </button>
       </div>
 
-      <Modal
-        title="Your results"
-        info={
+      <ModalDialog
+        title={'You have finished typing'}
+        description={
           <AccuracyAndWPM
             seconds={timer.seconds}
             totalCharsCount={initialText.length}
             correctLetters={correctLettersCount.current}
           />
         }
-        isVisible={openModal}
-        onClose={handleCloseModal}
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
       />
     </div>
   );
