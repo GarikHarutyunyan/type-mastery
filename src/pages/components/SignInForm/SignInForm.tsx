@@ -40,7 +40,9 @@ const SignInForm: React.FC<ISignInFormProps> = ({onSignIn, onSignUp}) => {
       </form>
       <div className={styles.signUpContainer}>
         <span className={styles.signUpText}>{`Don't have an account?`}</span>
-        <a onClick={onSignUp}>{'Sign up here'}</a>
+        <p>
+          <a onClick={onSignUp}>{'Sign up here'}</a>
+        </p>
       </div>
     </div>
   );
