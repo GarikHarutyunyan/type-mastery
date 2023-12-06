@@ -7,6 +7,7 @@ import {
   Box,
 } from '@mui/material';
 import {LinkGrid} from './LinkGrid';
+import styles from './Footer.module.css';
 
 const imagesList = [
   {
@@ -51,7 +52,7 @@ export const Footer = () => {
             display: 'flex',
             justifyContent: 'space-between',
             width: '100vw',
-            margin: '10px 0'
+            margin: '10px 0',
           }}
         >
           <Box
@@ -83,15 +84,21 @@ export const Footer = () => {
           padding: '5rem',
         }}
       >
-        <ImageList sx={{width: 'auto', minHeight: 48, margin: '4px'}} cols={4}>
+        <ImageList
+          sx={{
+            width: 'auto',
+            minHeight: 52,
+          }}
+          cols={4}
+        >
           {imagesList.map((item) => (
-            <Link href="#">
+            <Link href="#" className={styles.link}>
               <img
                 src={item.src}
                 alt={item.alt}
                 loading="lazy"
-                width={48}
-                style={{margin: '4px'}}
+                width={52}
+                style={{margin: '6px'}}
               />
             </Link>
           ))}
