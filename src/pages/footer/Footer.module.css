@@ -2,8 +2,3 @@
   margin: 0;
   padding: 0;
 }
-
-img:hover {
-  transform: scale(1.1);
-  transition: 0.15s ease-in-out;
-}
