@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import {Modal} from '../../../components/Modal';
+import {ModalDialog} from '../../../components/Modal';
 import {SignInForm} from '../SignInForm/SignInForm';
 import {SignUpForm} from '../SignUpForm/SignUpForm';
 
@@ -32,7 +32,12 @@ const AuthModal = ({isVisible, onClose}: IModalProps) => {
   );
 
   return (
-    <Modal title={title} info={info} isVisible={isVisible} onClose={onClose} />
+    <ModalDialog
+      isOpen={isVisible}
+      onClose={onClose}
+      title={title}
+      description={info}
+    />
   );
 };
 

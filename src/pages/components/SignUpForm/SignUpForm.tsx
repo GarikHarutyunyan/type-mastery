@@ -34,6 +34,18 @@ const SignUpForm: React.FC<ISignUpFormProps> = ({onSignIn, onSignUp}) => {
             placeholder="Enter your password"
           />
         </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="password">
+            {'Repeat password'}
+          </label>
+          <input
+            className={styles.input}
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Repeat password"
+          />
+        </div>
         <button type="submit" className={styles.submitButton}>
           {'Sign Up'}
         </button>
