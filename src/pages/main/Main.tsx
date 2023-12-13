@@ -43,7 +43,7 @@ export const Main: React.FC = () => {
 
   const {clearData, listenKeyboardEvents, removeKeyboardEvents} =
     useInputText(setPressedKey);
-  const divRef = useRef(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     (divRef.current as any).focus();
@@ -83,6 +83,8 @@ export const Main: React.FC = () => {
     if (currentTimeout) {
       clearTimeout(currentTimeout?.current);
     }
+
+    console.log('barlus dzez');
   };
 
   useEffect(() => {
@@ -133,25 +135,42 @@ export const Main: React.FC = () => {
     }
   }, [inputText?.length]);
 
-  const onBlur = (): void => {
+  const onBlur = () => {
     removeKeyboardEvents();
     setIsFocused(false);
   };
 
-  const onFocus = (): void => {
+  const onFocus: React.FocusEventHandler<HTMLDivElement> = () => {
     listenKeyboardEvents();
     setIsFocused(true);
   };
 
   useEffect(() => {
+    const isFinished: boolean = inputText?.length === initialText?.length;
+
     if (inputText.length) {
-      if (isFocused && isTabVisible) {
+      if (isFocused && isTabVisible && !isFinished) {
         timer.start();
       } else {
+        removeKeyboardEvents();
         timer.stop();
       }
     }
   }, [isFocused, inputText.length, isTabVisible]);
+
+  useEffect(() => {
+    const clickOutsideTextArea = (event: MouseEvent) => {
+      if (divRef.current && !divRef.current.contains(event.target as Node)) {
+        onBlur();
+      }
+    };
+
+    document.addEventListener('click', clickOutsideTextArea);
+
+    return () => {
+      document.removeEventListener('click', clickOutsideTextArea);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -170,7 +189,7 @@ export const Main: React.FC = () => {
       <div
         ref={divRef}
         tabIndex={0}
-        onBlur={onBlur}
+        // onBlur={onBlur}
         onFocus={onFocus}
         className={clsx(styles.textArea, {
           [styles.textArea_blured]: !isFocused,
