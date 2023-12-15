@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import React, {
   useDeferredValue,
   useEffect,
@@ -6,12 +5,15 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {useInputText} from '../../hooks/useInputText';
-import styles from './Main.module.css';
-import {ModalDialog} from '../../components/Modal';
+import clsx from 'clsx';
+
 import {useTimer} from '../../hooks/useTimer';
-import {AccuracyAndWPM} from '../components/shared/AccuracyAndWPM';
+import {ModalDialog} from '../../components/Modal';
+import {useInputText} from '../../hooks/useInputText';
 import {useIsTabVisible} from '../../hooks/useIsTabVisible';
+import {AccuracyAndWPM} from '../components/shared/AccuracyAndWPM';
+
+import styles from './Main.module.css';
 
 interface IMove {
   time: number;
@@ -19,46 +21,35 @@ interface IMove {
 }
 
 export const Main: React.FC = () => {
+  const timer = useTimer();
   const startTime = useRef<number>(0);
   const isTabVisible = useIsTabVisible();
-  const [isFocused, setIsFocused] = useState(true);
+  const correctLettersCount = useRef<number>(0);
+  const divRef = useRef<HTMLDivElement | null>(null);
   const [inputText, setPressedKey] = useState<string>('');
+  const [isFocused, setIsFocused] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [currentMoves, setCurrentMoves] = useState<IMove[]>([]);
   const [previousMoves, setPreviousMoves] = useState<IMove[]>([]);
   const [isReadyToStart, setIsReadyToStart] = useState<boolean>(true);
   const currentTimeout = useRef<NodeJS.Timeout | undefined>(undefined);
+  const previousInputText: string | null = useDeferredValue<string>(inputText);
   const [previousCursorPosition, setPreviousCursorPosition] = useState<
     number | null
   >(null);
-
-  const previousInputText: string | null = useDeferredValue<string>(inputText);
-  const correctLettersCount = useRef<number>(0);
-
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const timer = useTimer();
+  const {clearData, listenKeyboardEvents, removeKeyboardEvents} =
+    useInputText(setPressedKey);
 
   // const initialText = `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.`;
   const initialText = 'Hello World';
   const initialSplittedText: string[] = initialText.split('');
 
-  const {clearData, listenKeyboardEvents, removeKeyboardEvents} =
-    useInputText(setPressedKey);
-  const divRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    (divRef.current as any).focus();
-  }, []);
-
-  useEffect(() => {
-    if (!isReadyToStart) {
-      showNextMove();
-    }
-  }, [isReadyToStart]);
-
   const showNextMove = (): void => {
     const currentMove: IMove = previousMoves[0];
+
     if (currentMove) {
       const {time, position} = currentMove;
+
       currentTimeout.current = setTimeout(() => {
         if (!isReadyToStart) {
           setPreviousCursorPosition(position);
@@ -76,6 +67,7 @@ export const Main: React.FC = () => {
     setPreviousMoves(currentMoves);
     setPreviousCursorPosition(null);
     setCurrentMoves([]);
+
     correctLettersCount.current = 0;
     startTime.current = 0;
     timer.reset();
@@ -83,9 +75,37 @@ export const Main: React.FC = () => {
     if (currentTimeout) {
       clearTimeout(currentTimeout?.current);
     }
-
-    console.log('barlus dzez');
   };
+
+  const onBlur = (): void => {
+    removeKeyboardEvents();
+    setIsFocused(false);
+    timer.stop();
+    divRef.current?.blur();
+  };
+
+  const onFocus = (): void => {
+    listenKeyboardEvents();
+    setIsFocused(true);
+
+    if (inputText.length) {
+      timer.start();
+    }
+
+    divRef.current?.focus();
+  };
+
+  useEffect(() => {
+    if (divRef.current) {
+      divRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isReadyToStart) {
+      showNextMove();
+    }
+  }, [isReadyToStart]);
 
   useEffect(() => {
     const isStarting: boolean = isReadyToStart && inputText.length > 0;
@@ -128,35 +148,16 @@ export const Main: React.FC = () => {
     }
 
     if (isFinished) {
-      console.log(1111);
+      onBlur();
       setOpenModal(true);
-      removeKeyboardEvents();
-      timer.stop();
     }
   }, [inputText?.length]);
 
-  const onBlur = () => {
-    removeKeyboardEvents();
-    setIsFocused(false);
-  };
-
-  const onFocus: React.FocusEventHandler<HTMLDivElement> = () => {
-    listenKeyboardEvents();
-    setIsFocused(true);
-  };
-
   useEffect(() => {
-    const isFinished: boolean = inputText?.length === initialText?.length;
-
-    if (inputText.length) {
-      if (isFocused && isTabVisible && !isFinished) {
-        timer.start();
-      } else {
-        removeKeyboardEvents();
-        timer.stop();
-      }
+    if (!isTabVisible) {
+      onBlur();
     }
-  }, [isFocused, inputText.length, isTabVisible]);
+  }, [isTabVisible]);
 
   useEffect(() => {
     const clickOutsideTextArea = (event: MouseEvent) => {
@@ -172,6 +173,12 @@ export const Main: React.FC = () => {
     };
   }, []);
 
+  const onClose = () => {
+    onFocus();
+    onRestart();
+    setOpenModal(false);
+  };
+
   return (
     <div className={styles.container}>
       <div
@@ -179,17 +186,15 @@ export const Main: React.FC = () => {
           [styles.pauseTextInvisible]: isFocused,
         })}
       >
-        Paused
+        {'Paused'}
         <div>
-          <img src="./cursor.png" alt="cursor" />
-          <h4>Click here to continue</h4>
+          <img src={'./cursor.png'} alt={'cursor'} />
+          <h4>{'Click here to continue'}</h4>
         </div>
       </div>
-
       <div
         ref={divRef}
         tabIndex={0}
-        // onBlur={onBlur}
         onFocus={onFocus}
         className={clsx(styles.textArea, {
           [styles.textArea_blured]: !isFocused,
@@ -242,10 +247,9 @@ export const Main: React.FC = () => {
             [styles.restartBtnActive]: !isFocused,
           })}
         >
-          Restart
+          {'Restart'}
         </button>
       </div>
-
       <ModalDialog
         title={'You have finished typing'}
         description={
@@ -256,7 +260,7 @@ export const Main: React.FC = () => {
           />
         }
         isOpen={openModal}
-        onClose={() => setOpenModal(false)}
+        onClose={onClose}
       />
     </div>
   );
