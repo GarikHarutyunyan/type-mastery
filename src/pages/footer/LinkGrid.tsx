@@ -45,8 +45,8 @@ export const LinkGrid = () => {
   return (
     <Grid container sx={{justifyContent: 'end'}}>
       <Grid container item spacing={1} xs={10}>
-        {links.map((link) => (
-          <Grid item xs={4}>
+        {links.map((link, index) => (
+          <Grid item xs={4} key={`${link}_${index}`}>
             <Link
               href={link.href}
               color={'#000'}

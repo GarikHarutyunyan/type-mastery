@@ -91,8 +91,8 @@ export const Footer = () => {
           }}
           cols={4}
         >
-          {imagesList.map((item) => (
-            <Link href="#" className={styles.link}>
+          {imagesList.map((item, index) => (
+            <Link href="#" className={styles.link} key={`${item}_${index}`}>
               <img
                 src={item.src}
                 alt={item.alt}

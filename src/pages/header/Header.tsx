@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
+import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Container from '@mui/material/Container';
+import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+
 import {AuthModal} from '../components/AuthModal/AuthModal';
 
 const pages = ['Home', 'About Us', 'Sign In'];
@@ -18,22 +19,23 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const Header = () => {
   const [isAuthModalVisible, setIsAuthModalVisible] = useState<boolean>(false);
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [burgerMenu, setBurgerMenu] = useState<null | HTMLElement>(null);
+  const [userMenu, setUserMenu] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
+    setBurgerMenu(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+    setUserMenu(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setBurgerMenu(null);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setUserMenu(null);
   };
 
   const showAuthModal = (): void => {
@@ -79,7 +81,7 @@ export const Header = () => {
             </IconButton>
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
+              anchorEl={burgerMenu}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
@@ -89,7 +91,7 @@ export const Header = () => {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              open={Boolean(anchorElNav)}
+              open={Boolean(burgerMenu)}
               onClose={handleCloseNavMenu}
               sx={{
                 display: {xs: 'block', md: 'none'},
@@ -158,7 +160,7 @@ export const Header = () => {
             <Menu
               sx={{mt: '45px'}}
               id="menu-appbar"
-              anchorEl={anchorElUser}
+              anchorEl={userMenu}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
@@ -168,7 +170,7 @@ export const Header = () => {
                 vertical: 'top',
                 horizontal: 'right',
               }}
-              open={Boolean(anchorElUser)}
+              open={Boolean(userMenu)}
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
