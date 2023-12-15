@@ -12,14 +12,14 @@ export const AccuracyAndWPM: React.FC<IAccuracyAndWPMProps> = ({
   correctLetters,
 }) => {
   const minutes = seconds / 60;
-  const grossWPM = totalCharsCount / 5; // 5 is the common length of word
+  const grossWPM = totalCharsCount / 5;
   const WPM = Math.round(grossWPM / minutes);
   const accuracy = Math.round((correctLetters / totalCharsCount) * 100);
 
   return (
-    <div>
-      <div>WPM {WPM}</div>
-      <div>Accuracy: {accuracy}%</div>
-    </div>
+    <>
+      <p>{`WPM ${WPM}`}</p>
+      <p>{`Accuracy: ${accuracy}%`}</p>
+    </>
   );
 };
