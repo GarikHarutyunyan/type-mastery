@@ -1,10 +1,11 @@
-import React, {useContext, useEffect} from 'react';
-import styles from './ThemeSwitch.module.css';
-import {ThemeContext} from '../../../contexts/ThemeContext';
-import {Theme} from '../../../data-structures';
+import {useContext} from 'react';
 import clsx from 'clsx';
 
-const ThemeSwitch = () => {
+import {Theme} from '../../../data-structures';
+import {ThemeContext} from '../../../contexts/ThemeContext';
+import styles from './ThemeSwitch.module.css';
+
+export const ThemeSwitch = () => {
   const {theme, toggleTheme} = useContext(ThemeContext);
   const isDark = theme === Theme.DARK;
 
@@ -28,5 +29,3 @@ const ThemeSwitch = () => {
     </div>
   );
 };
-
-export {ThemeSwitch};
